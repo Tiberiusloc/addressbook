@@ -1,4 +1,3 @@
-// Business Logic for AddressBook ---------
 function AddressBook() {
   this.contacts = {};
   this.currentId = 0;
@@ -29,30 +28,31 @@ AddressBook.prototype.deleteContact = function(id) {
   return true;
 };
 
-// Business Logic for Contacts --------
-
-
-function Contact(firstName, lastName, phoneNumber, emailAddress, newPhysicalAddress) {
+// Business Logic for Contacts ---------
+function Contact(firstName, lastName, phoneNumber, newEmail, address) {
   this.firstName = firstName;
   this.lastName = lastName;
   this.phoneNumber = phoneNumber;
+  this.email = newEmail
+  this.address = address
+}
+function Email(emailAddress, type) {
   this.emailAddress = emailAddress;
-  this.physicalAddress = newPhysicalAddress;
+  this.type = type;
 }
 
-function PhysicalAddress(streetNum, city, state, zipCode, type) {
+function Address(streetNum, city, state, zipCode) {
   this.streetNum = streetNum;
   this.city = city;
   this.state = state;
   this.zipCode = zipCode;
-  this.type = type;
 }
 
 Contact.prototype.fullName = function() {
   return this.firstName + " " + this.lastName;
 };
 
-//UI Logic
+// User Interface Logic ---------
 let addressBook = new AddressBook();
 
 function listContacts(addressBookToDisplay) {
@@ -69,29 +69,20 @@ function listContacts(addressBookToDisplay) {
   contactsDiv.append(ul);
 }
 
-
-
 function displayContactDetails(event) {
   const contact = addressBook.findContact(event.target.id);
-  const fullAddress = contact.physicalAddress;
+  const multiEmailAddress = contact.email;
+  const multiAddress = contact.address;
   document.querySelector(".first-name").innerText = contact.firstName;
   document.querySelector(".last-name").innerText = contact.lastName;
   document.querySelector(".phone-number").innerText = contact.phoneNumber;
-  document.querySelector(".email-address").innerText = contact.emailAddress;
-  document.querySelector(".physical-address").innerText = fullAddress.streetNum;
-  document.querySelector(".physical-address").innerText = fullAddress.city;
-  document.querySelector(".physical-address").innerText = fullAddress.state;
-  document.querySelector(".physical-address").innerText = fullAddress.zipCode;
-  document.querySelector(".address-type").innerText = fullAddress.type;
-  document.querySelector("button.delete").setAttribute("id", contact.id);
+  document.querySelector(".email-address").innerText = multiEmailAddress.emailAddress;
+  document.querySelector(".email-type").innerText = multiEmailAddress.type;
+  document.querySelector(".street-num").innerText = multiAddress.streetNum;
+  document.querySelector(".city").innerText = multiAddress.city;
+  document.querySelector(".state").innerText = multiAddress.state;
+  document.querySelector(".zip-code").innerText = multiAddress.zipCode;
   document.querySelector("div#contact-details").removeAttribute("class");
-}
-
-function handleDelete(event) {
-  addressBook.deleteContact(event.target.id);
-  document.querySelector("button.delete").removeAttribute("id");
-  document.querySelector("div#contact-details").setAttribute("class", "hidden");
-  listContacts(addressBook);
 }
 
 function handleFormSubmission(event) {
@@ -99,29 +90,20 @@ function handleFormSubmission(event) {
   const inputtedFirstName = document.querySelector("input#new-first-name").value;
   const inputtedLastName = document.querySelector("input#new-last-name").value;
   const inputtedPhoneNumber = document.querySelector("input#new-phone-number").value;
-  const inputtedEmailAddress = document.querySelector("input#new-email-address").value;
-  const inputtedStreetNum = document.querySelector("input#new-street-num").value;
-  const inputtedCity = document.querySelector("input#new-city").value;
-  const inputtedState = document.querySelector("input#new-state").value;
-  const inputtedZipCode = document.querySelector("input#new-zip").value;
-  const inputtedPhysicalAddress = document.querySelector("input#new-physical-address").value;
-  let newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber, inputtedEmailAddress, inputtedPhysicalAddress);
+  const inputtedEmail = document.querySelector("input#new-email").value;
+  const inputtedEmailType = document.querySelector("select#email-type").value;
+  const inputtedStreetNum = document.querySelector("input#street-num").value;
+  const inputtedCity = document.querySelector("input#city").value;
+  const inputtedState = document.querySelector("input#state").value;
+  const inputtedZipCode = document.querySelector("input#zip-code").value;
+  let newAddress = new Address(inputtedStreetNum, inputtedCity, inputtedState, inputtedZipCode);
+  let newEmail = new Email(inputtedEmail, inputtedEmailType);
+  let newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber, newEmail, newAddress);
   addressBook.addContact(newContact);
   listContacts(addressBook);
-  document.querySelector("input#new-first-name").value = null;
-  document.querySelector("input#new-last-name").value = null;
-  document.querySelector("input#new-phone-number").value = null; 
-  document.querySelector("input#new-email-address").value = null; 
-  document.querySelector("input#new-physical-address").value = null; 
-  document.querySelector("input#new-physical-address").value = null; 
-  document.querySelector("input#new-physical-address").value = null; 
-  document.querySelector("input#new-physical-address").value = null; 
-
-  console.log(addressBook.contacts);
 }
 
 window.addEventListener("load", function (){
   document.querySelector("form#new-contact").addEventListener("submit", handleFormSubmission);
   document.querySelector("div#contacts").addEventListener("click", displayContactDetails);
-  document.querySelector("button.delete").addEventListener("click", handleDelete);
 });
