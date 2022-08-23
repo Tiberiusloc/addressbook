@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link href="css/styles.css" rel="stylesheet" type="text/css">
+    <script src="js/scripts.js"></script>
+    <title>Address Book</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Address Book</h1>
+      <div class="row">
+        <div class="col-md-6">
+          <hr>
+          <h2>Add a Contact:</h2>
+          <form id="new-contact">
+            <div class="form-group">
+              <label for="new-first-name">First Name</label>
+              <input type="text"  class="form-control" id="new-first-name" name="new-first-name">
+            </div>
+            <div class="form-group">
+              <label for="new-last-name">Last Name</label>
+              <input type="text"  class="form-control" id="new-last-name" name="new-last-name">
+            </div>
+            <div class="form-group">
+              <label for="new-phone-number">Phone Number</label>
+              <input type="text"  class="form-control" id="new-phone-number" name="new-phone-number">
+            </div>
+            <div class="form-group">
+              <label for="new-email-address">Email Address</label>
+              <input type="text" class="form-control" id="new-email-address">
+            </div>
+            <div class="form-group">
+              <h3>Physical</h3>
+              <label for="new-physical-address">Street</label>
+              <input type="text" class="form-control" id="new-street-num">
+              <label for="new-physical-address">City</label>
+              <input type="text" class="form-control" id="new-city">
+              <label for="new-physical-address">State</label>
+              <input type="text" class="form-control" id="new-state">
+              <label for="new-physical-address">Zip Code</label>
+              <input type="text" class="form-control" id="new-zip">
+              <select class="form-control" id="address-type">
+                <option value="work">Work</option>
+                <option value="home">Home</option>
+              </select>
+            </div>
+            <button type="submit" class="btn-primary">Add</button>
+          </form>
+          <hr>
+          <h2>Contacts:</h2>
+          <div id="contacts">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div id="contact-details" class="hidden">
+            <h2>Contact Details:</h2>
+            <p>First Name: <span class="first-name"></span></p>
+            <p>Last Name: <span class="last-name"></span></p>
+            <p>Phone Number: <span class="phone-number"></span></p>
+            <p>Email Address: <span class="email-address"></span></p>
+            <P>Physical Address: <span class="physical-address"></span></P>
+            <p>Address Type: <span class="address-type"></span></p>
+            <button class="btn-primary delete" type="button">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
