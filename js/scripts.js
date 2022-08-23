@@ -36,6 +36,7 @@ function Contact(firstName, lastName, phoneNumber, newEmail, address) {
   this.email = newEmail
   this.address = address
 }
+
 function Email(emailAddress, type) {
   this.emailAddress = emailAddress;
   this.type = type;
